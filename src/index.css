@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Salman Younus — iOS 26 Liquid Glass (Dark)
+  Clean SF-Pro-style sans (Geist). All colors HSL.
+*/
+
+@layer base {
+  :root {
+    /* Deep night base */
+    --background: 225 30% 6%;
+    --foreground: 210 30% 98%;
+
+    --card: 225 25% 10%;
+    --card-foreground: 210 30% 98%;
+
+    --popover: 225 25% 10%;
+    --popover-foreground: 210 30% 98%;
+
+    /* Apple electric blue */
+    --primary: 211 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 200 100% 70%;
+
+    /* Soft lavender */
+    --secondary: 260 60% 70%;
+    --secondary-foreground: 210 30% 98%;
+
+    --muted: 225 20% 16%;
+    --muted-foreground: 220 15% 70%;
+
+    --accent: 200 100% 70%;
+    --accent-foreground: 225 30% 6%;
+
+    /* Track tints */
+    --tint-ai: 211 100% 65%;
+    --tint-devops: 150 70% 55%;
+    --tint-security: 24 100% 65%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 22%;
+    --input: 220 20% 18%;
+    --ring: 211 100% 60%;
+
+    --radius: 1.5rem;
+
+    /* Glass tokens — dark */
+    --glass-bg: 220 25% 14% / 0.55;
+    --glass-bg-strong: 220 25% 14% / 0.75;
+    --glass-border: 220 60% 90% / 0.12;
+    --glass-edge: 220 100% 95% / 0.18;
+
+    /* Aurora gradients (dark) */
+    --gradient-aurora:
+      radial-gradient(ellipse 80% 60% at 15% 10%, hsl(211 100% 30% / 0.55), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 85% 20%, hsl(260 100% 35% / 0.5), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, hsl(150 70% 28% / 0.4), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 10% 90%, hsl(330 100% 35% / 0.35), transparent 60%),
+      linear-gradient(180deg, hsl(225 30% 6%), hsl(225 35% 4%));
+
+    --gradient-primary: linear-gradient(135deg, hsl(211 100% 55%), hsl(200 100% 65%));
+    --gradient-text: linear-gradient(135deg, hsl(210 30% 98%) 0%, hsl(211 100% 75%) 60%, hsl(260 80% 80%) 100%);
+    --gradient-shimmer: linear-gradient(110deg, transparent 30%, hsl(0 0% 100% / 0.18) 50%, transparent 70%);
+
+    /* Shadows — soft, lifted */
+    --shadow-glass: 0 1px 0 hsl(0 0% 100% / 0.08) inset, 0 -1px 0 hsl(0 0% 0% / 0.2) inset, 0 20px 40px -16px hsl(0 0% 0% / 0.5);
+    --shadow-glass-hover: 0 1px 0 hsl(0 0% 100% / 0.12) inset, 0 -1px 0 hsl(0 0% 0% / 0.2) inset, 0 30px 60px -20px hsl(211 100% 50% / 0.4);
+    --shadow-glow: 0 0 40px hsl(211 100% 55% / 0.45);
+
+    /* Motion */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Smooth section snapping */
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+    background: var(--gradient-aurora);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.35);
+    color: hsl(0 0% 100%);
+  }
+}
+
+@layer components {
+  /* iOS 26 Liquid Glass — dark */
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass-bg-strong));
+    backdrop-filter: blur(50px) saturate(200%);
+    -webkit-backdrop-filter: blur(50px) saturate(200%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card {
+    @apply glass rounded-[28px] relative overflow-hidden;
+    transition: transform 0.6s var(--ease-spring), box-shadow 0.6s var(--ease-smooth), backdrop-filter 0.4s ease;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--glass-edge)), transparent 30%, transparent 70%, hsl(0 0% 100% / 0.08));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, hsl(0 0% 100% / 0.06), transparent);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-6px);
+    backdrop-filter: blur(50px) saturate(200%);
+    box-shadow: var(--shadow-glass-hover);
+  }
+
+  /* Frosted pill chip */
+  .glass-chip {
+    @apply inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium;
+    background: hsl(220 25% 20% / 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(0 0% 100% / 0.12);
+    box-shadow: 0 1px 0 hsl(0 0% 100% / 0.08) inset, 0 4px 12px -4px hsl(0 0% 0% / 0.3);
+    color: hsl(210 30% 92%);
+    transition: all 0.3s var(--ease-spring);
+  }
+
+  .glass-chip:hover {
+    transform: translateY(-1px);
+    background: hsl(220 25% 24% / 0.75);
+    border-color: hsl(0 0% 100% / 0.2);
+  }
+
+  /* Frosted pill button */
+  .glass-button {
+    @apply relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium overflow-hidden text-sm;
+    background: hsl(220 25% 18% / 0.6);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid hsl(0 0% 100% / 0.14);
+    box-shadow: 0 1px 0 hsl(0 0% 100% / 0.1) inset, 0 8px 24px -8px hsl(0 0% 0% / 0.4);
+    color: hsl(210 30% 98%);
+    transition: all 0.4s var(--ease-spring);
+  }
+
+  .glass-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-shimmer);
+    background-size: 200% 100%;
+    background-position: 200% 0;
+    opacity: 0;
+    transition: opacity 0.4s ease, background-position 0.8s ease;
+    pointer-events: none;
+  }
+
+  .glass-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 0 hsl(0 0% 100% / 0.15) inset, 0 14px 32px -8px hsl(211 100% 50% / 0.45);
+    border-color: hsl(211 100% 70% / 0.5);
+  }
+
+  .glass-button:hover::after {
+    opacity: 1;
+    background-position: -200% 0;
+  }
+
+  .glass-button-primary {
+    @apply glass-button;
+    background: linear-gradient(135deg, hsl(211 100% 55%), hsl(200 100% 65%));
+    color: hsl(0 0% 100%);
+    border-color: hsl(0 0% 100% / 0.2);
+    box-shadow: 0 1px 0 hsl(0 0% 100% / 0.3) inset, 0 12px 32px -8px hsl(211 100% 50% / 0.6);
+  }
+
+  /* Track tint variants — dark */
+  .tint-ai { background: linear-gradient(135deg, hsl(var(--tint-ai) / 0.18), hsl(var(--tint-ai) / 0.04)); }
+  .tint-devops { background: linear-gradient(135deg, hsl(var(--tint-devops) / 0.18), hsl(var(--tint-devops) / 0.04)); }
+  .tint-security { background: linear-gradient(135deg, hsl(var(--tint-security) / 0.18), hsl(var(--tint-security) / 0.04)); }
+
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Animated background blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* Hero text shimmer (dark) */
+  .text-shimmer {
+    background: linear-gradient(110deg, hsl(210 30% 98%) 30%, hsl(211 100% 70%) 50%, hsl(210 30% 98%) 70%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shimmer-text 6s linear infinite;
+  }
+
+  /* Coming soon shimmer overlay */
+  .shimmer-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 35%, hsl(0 0% 100% / 0.12) 50%, transparent 65%);
+    background-size: 200% 100%;
+    animation: shimmer-sweep 3s linear infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-aurora { background: var(--gradient-aurora); }
+  .bg-gradient-primary { background: var(--gradient-primary); }
+
+  .animate-blob-1 { animation: blob-drift-1 22s ease-in-out infinite; }
+  .animate-blob-2 { animation: blob-drift-2 28s ease-in-out infinite; }
+  .animate-blob-3 { animation: blob-drift-3 32s ease-in-out infinite; }
+  .animate-blob-4 { animation: blob-drift-4 26s ease-in-out infinite; }
+}
+
+@keyframes blob-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(60px, -40px) scale(1.1); }
+  66% { transform: translate(-40px, 50px) scale(0.95); }
+}
+@keyframes blob-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, 60px) scale(1.15); }
+}
+@keyframes blob-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-50px, -60px) scale(1.05); }
+  66% { transform: translate(70px, 30px) scale(0.9); }
+}
+@keyframes blob-drift-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, -70px) scale(1.1); }
+}
+
+@keyframes shimmer-text {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes shimmer-sweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
